@@ -13,3 +13,10 @@ html, body{
     color: #1e2022;
     line-height: 1.5;
 }
+
+.hr-space {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.75;
+    width: 100%;
+}

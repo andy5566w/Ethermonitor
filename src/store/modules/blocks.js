@@ -13,6 +13,9 @@ export const getters = {
   getters_currentState(state) {
     return state.currentStats;
   },
+  getters_blocks(state) {
+    return state.blocks;
+  },
 };
 
 export const mutations = {
@@ -32,14 +35,31 @@ export const mutations = {
 
 export const actions = {
   async fetchBlocksFromAPI({ commit }) {
+    // TODO This fake api
     const {
       data: {
-        data: { blocks, currentStats, previousStats, price_chart_data },
+        data: { currentStats, previousStats, price_chart_data },
       },
     } = await fetchBlocks();
-    commit("MUTATE_BLOCKS", blocks);
+    commit("MUTATE_BLOCKS", fake_blocks());
     commit("MUTATE_CURRENT_STATE", currentStats);
     commit("MUTATE_PREVIOUS_STATE", previousStats);
     commit("MUTATE_PRICE_CHART_DATA", price_chart_data);
   },
+};
+
+const fake_blocks = () => {
+  const retsult = [];
+  for (let i = 0; i < 10; i++) {
+    console.log(new Date().getTime() - +(Math.random() * 1000).toFixed(0));
+    retsult.push({
+      block_number: "15093834",
+      time: Date.now() - +(Math.random() * 60).toFixed(0),
+      miner: "Ethermine",
+      txns: `${Math.round(327 * Math.random())}txns`,
+      txns_time: Date.now() - +(Math.random() * 60).toFixed(0),
+      value: +(Math.random() * 5).toFixed(5),
+    });
+  }
+  return retsult;
 };

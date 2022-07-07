@@ -14,7 +14,6 @@ export const getters = {
 
 export const mutations = {
   MUTATE_TRANSACTIONS(state, payload) {
-    console.log("mutate");
     state.transactions = payload;
   },
 };

@@ -22,11 +22,24 @@
 
     <div data-chart>Chart</div>
   </div>
+
+  <div
+    class="container mx-auto bg-white border-amber-900 rounded-xl mt-5 flex flex-wrap"
+  >
+    <div class="blocks shadow-md rounded md:flex-1">
+      <HomeTable header-text="Latest Blocks" :data="blocks" icon-text="Bk" />
+    </div>
+    <div class="mx-5"></div>
+    <div class="transactions shadow-md rounded md:flex-1">
+      <HomeTable header-text="Latest Blocks" :data="blocks" icon-text="Bk" />
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { computed, onMounted } from "vue";
 import HomeSearch from "../components/HomeSearch.vue";
+import HomeTable from "../components/tables/HomeTable.vue";
 import { CubeTransparentIcon } from "@heroicons/vue/solid";
 import { useStore } from "vuex";
 
@@ -52,6 +65,9 @@ const panelData = computed(() => {
       data: difficulty || "no data",
     },
   ];
+});
+const blocks = computed(() => {
+  return store.getters["blocks/getters_blocks"];
 });
 
 onMounted(() => {
