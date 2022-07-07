@@ -1,15 +1,15 @@
 <template>
-  <header>
+  <header class="container m-auto">
     <Disclosure as="nav" class="bg-white" v-slot="{ open }">
-      <div class="max-w-screen-2xl px-5 mx-auto container">
-        <div class="flex items-center justify-between py-2">
+      <div class="max-w-screen-2xl">
+        <div class="flex items-center justify-between py-3">
           <div class="flex-shrink-0 flex items-center">
             <img
               class="h-8 w-8"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
               alt="Workflow"
             />
-            <p class="ml-2">Etherscan</p>
+            <p class="ml-2 text-2xl font-semibold">Etherscan</p>
           </div>
 
           <div class="hidden md:block">
