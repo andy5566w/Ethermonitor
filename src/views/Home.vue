@@ -24,7 +24,7 @@
   </div>
 
   <div
-    class="container mx-auto bg-white border-amber-900 rounded-xl mt-5 flex flex-wrap"
+    class="container mx-auto bg-white border-amber-900 rounded-xl mt-5 mb-16 flex flex-wrap"
   >
     <div class="blocks shadow-md rounded md:flex-1">
       <HomeTable header-text="Latest Blocks" :data="blocks" icon-text="Bk" />
