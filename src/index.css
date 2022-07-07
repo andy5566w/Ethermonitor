@@ -6,6 +6,7 @@
     --primary-color: #3f3cbb;
     --primary-text-color: #3498db;
     --secondary-text-color: "#77838f";
+    --border-color: #e5e7eb;
 }
 html, body{
     font-family: Helvetica,Arial,sans-serif;

@@ -4,7 +4,7 @@
       {{ headerText }}
     </h2>
     <hr class="hr-space" />
-    <div class="table__body h-80 overflow-y-auto">
+    <div class="table__body max-h-[400px] overflow-y-auto">
       <div
         v-for="(d, index) in data"
         :key="index"
@@ -58,8 +58,13 @@
         <hr class="hr-space" />
       </div>
     </div>
-    <hr class="hr-space" />
-    <div class="table__footer px-3 py-3">here is footer</div>
+    <div class="table__footer px-3 py-3">
+      <a
+        href="#"
+        class="table__footer--btn block rounded text-center w-full text-text-primary p-1 text-sm"
+        >View All Blocks</a
+      >
+    </div>
   </div>
 </template>
 
@@ -99,6 +104,18 @@ const props = defineProps({
         left: 0;
         background-color: #fff;
         transform: translate(-50%, 20%) rotate(45deg);
+      }
+    }
+  }
+  &__footer {
+    border-top: 1px solid var(--border-color);
+    &--btn {
+      background-color: rgba(52, 152, 219, 0.1);
+      transition: 0.5s all ease;
+      &:hover {
+        color: #fff;
+        background: #3498db;
+        box-shadow: 0 4px 11px rgb(52 152 219 / 35%);
       }
     }
   }
