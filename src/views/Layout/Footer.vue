@@ -1,7 +1,9 @@
 <template>
-  <div class="footer py-7">
-    <div class="footer__info container mx-auto flex justify-between py-3">
-      <div class="flex-[0_0_25%]">
+  <div class="footer px-14 sm:px-0 py-7">
+    <div
+      class="footer__info container mx-auto flex justify-between py-3 flex-wrap sm:flex-nowrap"
+    >
+      <div class="flex-[0_0_100%] sm:flex-[0_0_25%]">
         <div class="flex items-center mb-4">
           <HomeIcon class="w-8 mr-2" />
           <span class="text-xl">Powered by Ethereum</span>
@@ -20,7 +22,7 @@
       <div
         v-for="({ title, lists }, index) in footer_lists"
         :key="index"
-        class="flex-[0_0_16.6667%]"
+        class="flex-[0_0_48%] sm:flex-[0_0_16.6667%] mt-8 sm:mt-0"
       >
         <h4 class="mb-3 pb-2 font-semibold">{{ title }}</h4>
         <ul>
@@ -35,8 +37,10 @@
 
     <hr class="hr-space container mx-auto" />
 
-    <div class="container mx-auto flex justify-between">
-      <span class="flex items-center"
+    <div
+      class="container mx-auto flex justify-between flex-wrap sm:flex-nowrap"
+    >
+      <span class="flex items-center w-full sm:w-auto my-3 sm:my-0"
         >Etherscan © 2022 (C1) | Donate <HeartIcon class="w-5 ml-2"
       /></span>
       <div class="flex items-center space-x-2">
