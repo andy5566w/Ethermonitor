@@ -17,6 +17,19 @@
             >{{ data }}</a
           >
         </div>
+
+        <div v-if="index === 1" class="ml-auto md:mr-10">
+          <div class="text-text-secondary text-sm">MED GAS PRICE</div>
+          <a href="#" class="text-black hover:text-text-primary text-sm"
+            >12 Gwei <span class="text-text-secondary text-sm">($0.32)</span></a
+          >
+        </div>
+        <div v-else-if="index === 3" class="ml-auto md:mr-10">
+          <div class="text-text-secondary text-sm">HASH RATE</div>
+          <a href="#" class="text-black hover:text-text-primary text-sm"
+            >914,074.65 GH/s</a
+          >
+        </div>
       </div>
       <hr v-if="index === 0 || index === 1" class="max-w-[90%] mt-2" />
       <hr
@@ -103,7 +116,7 @@ onMounted(() => {
     left: 32.2%;
   }
   &:after {
-    right: 35.5%;
+    left: 65%;
   }
 }
 

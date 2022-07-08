@@ -1,6 +1,6 @@
 <template>
   <div class="footer py-7">
-    <div class="footer__info container mx-auto flex justify-between">
+    <div class="footer__info container mx-auto flex justify-between py-3">
       <div class="flex-[0_0_25%]">
         <div class="flex items-center mb-4">
           <HomeIcon class="w-8 mr-2" />
