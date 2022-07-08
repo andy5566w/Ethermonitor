@@ -81,15 +81,16 @@
       <a
         href="#"
         class="table__footer--btn block rounded text-center w-full text-text-primary p-1 text-sm"
-        >View All {{ buttonText }}</a
+        >View All {{ upperFirst(props.type) }}</a
       >
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
 import { timeSince } from "../../js/utils";
+import { upperFirst } from "lodash";
+
 const props = defineProps({
   data: {
     type: Array,
@@ -108,9 +109,6 @@ const props = defineProps({
     default: () => "blocks",
     validator: (value) => ["blocks", "transactions"].includes(value),
   },
-});
-const buttonText = computed(() => {
-  return props.type.charAt(0).toUpperCase() + props.type.slice(1);
 });
 </script>
 

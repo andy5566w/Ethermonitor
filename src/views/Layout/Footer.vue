@@ -26,7 +26,7 @@
         <ul>
           <li v-for="list in lists" :key="list">
             <a href="#" class="footer__info--link py-1 w-full inline-block">{{
-              list
+              upperFirst(list)
             }}</a>
           </li>
         </ul>
@@ -60,6 +60,8 @@ import {
   CheckIcon,
   EmojiHappyIcon,
 } from "@heroicons/vue/solid";
+import { upperFirst } from "lodash";
+
 const footer_lists = [
   {
     title: "Company",
