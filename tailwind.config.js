@@ -11,6 +11,7 @@ module.exports = {
         "block-color": "rgba(119,131,143,.1)",
         "label-second-color": "rgba(119,131,143,.1)",
         "label-text-second-color": "#77838f",
+        "header-menu-color": "#8c98a4",
       },
     },
   },
