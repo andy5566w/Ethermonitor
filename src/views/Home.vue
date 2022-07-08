@@ -1,7 +1,7 @@
 <template>
   <HomeSearch />
   <div
-    class="container mx-auto h-44 shadow-md bg-white border-amber-900 rounded-xl grid grid-cols-3 grid-rows-2 p-3 -mt-14"
+    class="current-info container mx-auto h-44 shadow-md bg-white border-amber-900 rounded-xl grid grid-cols-3 grid-rows-2 items-center p-3 -mt-14"
   >
     <div
       v-for="({ title, data }, index) in panelData"
@@ -18,9 +18,14 @@
           >
         </div>
       </div>
+      <hr v-if="index === 0 || index === 1" class="max-w-[90%] mt-2" />
+      <hr
+        v-if="index === 2 || index === 3"
+        class="md:hidden max-w-[90%] mt-2"
+      />
     </div>
 
-    <div data-chart>Chart</div>
+    <div data-chart class="w-full h-full">Chart</div>
   </div>
 
   <div
@@ -77,6 +82,31 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+.current-info {
+  position: relative;
+  @media (max-width: 768px) {
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 87%;
+    background-color: var(--border-color);
+    top: 10px;
+  }
+  &:before {
+    left: 32.2%;
+  }
+  &:after {
+    right: 35.5%;
+  }
+}
+
 [data-index="0"] {
   grid-column: 1 / 2;
   grid-row: 1 / 2;

@@ -36,6 +36,7 @@ export const mutations = {
 export const actions = {
   async fetchBlocksFromAPI({ commit }) {
     // TODO This fake api
+    commit("MUTATE_BLOCKS", fake_blocks());
     const {
       data: {
         data: { currentStats, previousStats, price_chart_data },
