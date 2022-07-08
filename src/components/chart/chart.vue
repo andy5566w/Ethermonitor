@@ -3,9 +3,19 @@
 </template>
 
 <script setup>
-import { nextTick, ref } from "vue";
+import { debounce } from "lodash";
+import { nextTick, ref, onMounted, onUnmounted } from "vue";
 const refChart = ref(null);
 let google = window.google;
+const handleResize = debounce(() => {
+  setup();
+}, 500);
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
 
 function drawBasic() {
   const data = new google.visualization.DataTable();
@@ -101,9 +111,12 @@ function drawBasic() {
 
   chart.draw(data, options);
 }
-nextTick(() => {
+function setup() {
   google.charts.load("current", { packages: ["corechart", "line"] });
   google.charts.setOnLoadCallback(drawBasic);
+}
+nextTick(() => {
+  setup();
 });
 </script>
 

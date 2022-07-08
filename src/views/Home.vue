@@ -1,7 +1,7 @@
 <template>
   <HomeSearch />
   <div
-    class="current-info container mx-auto h-44 shadow-md bg-white border-amber-900 rounded-xl grid grid-cols-3 grid-rows-2 items-center p-3 -mt-14"
+    class="current-info sm:container mx-10 sm:mx-auto sm:h-44 shadow-md bg-white border-amber-900 rounded-xl grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 items-center p-3 -mt-14"
   >
     <div
       v-for="({ title, data }, index) in panelData"
@@ -13,20 +13,25 @@
         <div>
           <h4 class="uppercase text-text-secondary text-sm">{{ title }}</h4>
           <a
-            class="text-black hover:text-text-primary cursor-pointer text-sm"
+            class="text-black hover:text-text-primary cursor-pointer text-sm truncate"
             >{{ data }}</a
           >
         </div>
 
         <div v-if="index === 1" class="ml-auto md:mr-10">
           <div class="text-text-secondary text-sm">MED GAS PRICE</div>
-          <a href="#" class="text-black hover:text-text-primary text-sm"
-            >12 Gwei <span class="text-text-secondary text-sm">($0.32)</span></a
+          <a
+            href="#"
+            class="text-black hover:text-text-primary text-sm truncate"
+            >12 Gwei
+            <span class="text-text-secondary text-sm truncate">($0.32)</span></a
           >
         </div>
         <div v-else-if="index === 3" class="ml-auto md:mr-10">
-          <div class="text-text-secondary text-sm">HASH RATE</div>
-          <a href="#" class="text-black hover:text-text-primary text-sm"
+          <div class="text-text-secondary text-sm truncate">HASH RATE</div>
+          <a
+            href="#"
+            class="text-black hover:text-text-primary text-sm truncate"
             >914,074.65 GH/s</a
           >
         </div>
@@ -125,26 +130,27 @@ onMounted(() => {
     left: 65%;
   }
 }
+@media (min-width: 640px) {
+  [data-index="0"] {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  [data-index="1"] {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+  [data-index="2"] {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  [data-index="3"] {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
 
-[data-index="0"] {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-[data-index="1"] {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-}
-[data-index="2"] {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-[data-index="3"] {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-
-[data-chart] {
-  grid-column: 3 / -1;
-  grid-row: 1 / -1;
+  [data-chart] {
+    grid-column: 3 / -1;
+    grid-row: 1 / -1;
+  }
 }
 </style>
