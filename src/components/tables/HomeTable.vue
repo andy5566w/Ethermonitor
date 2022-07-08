@@ -1,5 +1,5 @@
 <template>
-  <div class="table rounded-xl w-full">
+  <div class="table w-full">
     <h2 class="table__header px-3 pt-3 text-base font-semibold">
       {{ headerText }}
     </h2>

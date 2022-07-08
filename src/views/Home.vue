@@ -47,13 +47,13 @@
   </div>
 
   <div
-    class="container mx-auto bg-white border-amber-900 rounded-xl mt-5 mb-16 flex flex-wrap"
+    class="container mx-auto border-amber-900 rounded-xl mt-5 mb-16 lg:flex flex-wrap"
   >
-    <div class="blocks shadow-md rounded md:flex-1">
+    <div class="blocks shadow-md md:flex-1 rounded-xl overflow-hidden">
       <HomeTable header-text="Latest Blocks" :data="blocks" icon-text="Bk" />
     </div>
-    <div class="mx-5"></div>
-    <div class="transactions shadow-md rounded md:flex-1">
+    <div class="my-5 lg:my-0 mx-5"></div>
+    <div class="transactions shadow-md md:flex-1 rounded-xl overflow-hidden">
       <HomeTable
         header-text="Latest Transactions"
         :data="blocks"
