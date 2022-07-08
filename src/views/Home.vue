@@ -38,7 +38,7 @@
       />
     </div>
 
-    <div data-chart class="w-full h-full">Chart</div>
+    <div data-chart class="w-full h-full"><HomeChart /></div>
   </div>
 
   <div
@@ -58,6 +58,7 @@
 import { computed, onMounted } from "vue";
 import HomeSearch from "../components/HomeSearch.vue";
 import HomeTable from "../components/tables/HomeTable.vue";
+import HomeChart from "../components/chart/chart.vue";
 import { CubeTransparentIcon } from "@heroicons/vue/solid";
 import { useStore } from "vuex";
 

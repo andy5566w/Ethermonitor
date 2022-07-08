@@ -1,4 +1,4 @@
-import { fetchTxs } from "../../server/ether";
+// import { fetchTxs } from "../../server/ether";
 
 export const namespaced = true;
 
@@ -20,11 +20,12 @@ export const mutations = {
 
 export const actions = {
   async fetchTxsFromAPI({ commit }) {
-    const {
-      data: {
-        data: { data },
-      },
-    } = await fetchTxs();
-    commit("MUTATE_TRANSACTIONS", data);
+    //   const {
+    //     data: {
+    //       data: { data },
+    //     },
+    //   } = await fetchTxs();
+    // TODO 先用 fake data
+    commit("MUTATE_TRANSACTIONS", []);
   },
 };

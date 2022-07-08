@@ -1,4 +1,4 @@
-import { fetchBlocks } from "../../server/ether";
+// import { fetchBlocks } from "../../server/ether";
 
 export const namespaced = true;
 
@@ -37,22 +37,21 @@ export const actions = {
   async fetchBlocksFromAPI({ commit }) {
     // TODO This fake api
     commit("MUTATE_BLOCKS", fake_blocks());
-    const {
-      data: {
-        data: { currentStats, previousStats, price_chart_data },
-      },
-    } = await fetchBlocks();
-    commit("MUTATE_BLOCKS", fake_blocks());
-    commit("MUTATE_CURRENT_STATE", currentStats);
-    commit("MUTATE_PREVIOUS_STATE", previousStats);
-    commit("MUTATE_PRICE_CHART_DATA", price_chart_data);
+    // const {
+    //   data: {
+    //     data: { currentStats, previousStats, price_chart_data },
+    //   },
+    // } = await fetchBlocks();
+    // commit("MUTATE_BLOCKS", fake_blocks());
+    // commit("MUTATE_CURRENT_STATE", currentStats);
+    // commit("MUTATE_PREVIOUS_STATE", previousStats);
+    // commit("MUTATE_PRICE_CHART_DATA", price_chart_data);
   },
 };
 
 const fake_blocks = () => {
   const retsult = [];
   for (let i = 0; i < 10; i++) {
-    console.log(new Date().getTime() - +(Math.random() * 1000).toFixed(0));
     retsult.push({
       block_number: "15093834",
       time: Date.now() - +(Math.random() * 60).toFixed(0),
