@@ -1,7 +1,7 @@
 <template>
   <section class="HomeSearch h-15 flex items-center py-16">
-    <div class="flex container mx-auto pb-8">
-      <div class="flex-grow pr-14">
+    <div class="flex container mx-10 sm:mx-auto pb-8">
+      <div class="flex-grow lg:pr-14">
         <h1 class="text-white font-normal text-xl text-start mb-3">
           The Ethereum Blockchain Explorer
         </h1>
@@ -14,7 +14,7 @@
           Welcome Bonus!
         </p>
       </div>
-      <div class="bg-gray-300 HomeSearch__ad">ad</div>
+      <div class="hidden lg:block bg-gray-300 HomeSearch__ad">ad</div>
     </div>
   </section>
 </template>
