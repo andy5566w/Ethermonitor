@@ -49,7 +49,12 @@
     </div>
     <div class="mx-5"></div>
     <div class="transactions shadow-md rounded md:flex-1">
-      <HomeTable header-text="Latest Blocks" :data="blocks" icon-text="Bk" />
+      <HomeTable
+        header-text="Latest Transactions"
+        :data="blocks"
+        icon-text="Tx"
+        :type="'transactions'"
+      />
     </div>
   </div>
 </template>

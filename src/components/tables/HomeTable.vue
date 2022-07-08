@@ -13,6 +13,7 @@
         <div class="sm:flex-[0_0_33.3333%] flex items-start">
           <span
             class="w-10 h-10 rounded inline-block bg-block-color text-center leading-10 font-base mr-2"
+            :class="[type === 'blocks' ? 'rounded' : 'rounded-full']"
           >
             {{ iconText }}
           </span>
@@ -27,7 +28,7 @@
         </div>
 
         <div class="sm:flex-[0_0_66.6667%] flex justify-between items-start">
-          <div>
+          <div v-if="type === 'blocks'">
             <p>
               Miner
               <a
@@ -48,6 +49,24 @@
               >
             </p>
           </div>
+          <div v-else>
+            <p>
+              From
+              <a
+                href="#"
+                class="text-text-primary hover:text-text-primary-hover"
+                >{{ d.miner }}</a
+              >
+            </p>
+            <p>
+              To
+              <a
+                href="#"
+                class="text-text-primary hover:text-text-primary-hover"
+                >{{ d.txns }}</a
+              >
+            </p>
+          </div>
           <div
             class="table__body--label text-label-text-second-color bg-label-second-color pr-2 pl-5 py-1 tracking-wider"
           >
@@ -62,13 +81,14 @@
       <a
         href="#"
         class="table__footer--btn block rounded text-center w-full text-text-primary p-1 text-sm"
-        >View All Blocks</a
+        >View All {{ buttonText }}</a
       >
     </div>
   </div>
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { timeSince } from "../../js/utils";
 const props = defineProps({
   data: {
@@ -83,6 +103,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    default: () => "blocks",
+    validator: (value) => ["blocks", "transactions"].includes(value),
+  },
+});
+const buttonText = computed(() => {
+  return props.type.charAt(0).toUpperCase() + props.type.slice(1);
 });
 </script>
 
