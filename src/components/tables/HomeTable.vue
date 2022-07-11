@@ -78,11 +78,7 @@
       </div>
     </div>
     <div class="table__footer px-3 py-3">
-      <a
-        href="#"
-        class="table__footer--btn block rounded text-center w-full text-text-primary p-1 text-sm"
-        >View All {{ upperFirst(props.type) }}</a
-      >
+      <EtherButton>View All {{ upperFirst(props.type) }}</EtherButton>
     </div>
   </div>
 </template>
@@ -90,6 +86,7 @@
 <script setup>
 import { timeSince } from "../../js/utils";
 import { upperFirst } from "lodash";
+import EtherButton from "../EtherButton.vue";
 
 const props = defineProps({
   data: {
