@@ -4,17 +4,19 @@
 
 <script setup>
 import { debounce } from "lodash";
-import { nextTick, ref, onMounted, onUnmounted } from "vue";
+import { nextTick, ref, onMounted, watchEffect } from "vue";
 const refChart = ref(null);
 let google = window.google;
 const handleResize = debounce(() => {
   setup();
 }, 500);
 onMounted(() => {
-  window.addEventListener("resize", handleResize);
-});
-onUnmounted(() => {
-  window.removeEventListener("resize", handleResize);
+  watchEffect((onInvalidator) => {
+    window.addEventListener("resize", handleResize);
+    onInvalidator(() => {
+      window.removeEventListener("resize", handleResize);
+    });
+  });
 });
 
 function drawBasic() {
