@@ -326,7 +326,7 @@ import {
   ArrowSmUpIcon,
   ArrowSmDownIcon,
 } from "@heroicons/vue/outline";
-import EtherButton from "../../components/EtherButton.vue";
+import EtherButton from "../../components/button/EtherButton.vue";
 
 const isShowMore = ref(false);
 </script>
