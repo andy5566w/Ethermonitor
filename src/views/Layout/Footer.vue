@@ -1,5 +1,5 @@
 <template>
-  <div class="footer px-14 sm:px-0 py-7">
+  <div class="footer px-14 sm:px-5 py-7">
     <div
       class="footer__info container mx-auto flex justify-between py-3 flex-wrap sm:flex-nowrap"
     >
