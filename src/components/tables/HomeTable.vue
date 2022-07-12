@@ -19,8 +19,8 @@
           </span>
           <div class="inline-block">
             <a
-              href="#"
-              class="text-text-primary hover:text-text-primary-hover"
+              @click.prevent="handleNavigator(d.block_number)"
+              class="text-text-primary hover:text-text-primary-hover cursor-pointer"
               >{{ d.block_number }}</a
             >
             <div class="text-text-secondary">{{ timeSince(d.time) }}</div>
@@ -83,6 +83,7 @@
 import { timeSince } from "../../js/utils";
 import { upperFirst } from "lodash";
 import EtherButton from "../button/EtherButton.vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   data: {
@@ -103,6 +104,13 @@ const props = defineProps({
     validator: (value) => ["blocks", "transactions"].includes(value),
   },
 });
+const router = useRouter();
+const handleNavigator = (id) => {
+  router.push({
+    params: { id },
+    name: props.type === "blocks" ? "singlePageOfBlock" : "singlePageOfTx",
+  });
+};
 </script>
 
 <style scoped lang="scss">
