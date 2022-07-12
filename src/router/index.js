@@ -15,6 +15,11 @@ const routes = [
     name: "singlePageOfTx",
     component: () => import("../views/SinglePage/Transaction.vue"),
   },
+  {
+    path: "/blocks",
+    name: "Multiple-blocks",
+    component: () => import("../views/Lists/Blocks.vue"),
+  },
 ];
 
 const router = createRouter({
