@@ -1,12 +1,18 @@
 <template>
   <section class="block container mx-auto p-5 pb-16">
-    <h1 class="text-[1.3125rem] mb-3 flex items-center">
-      Transaction Details
-      <EtherButton class="w-6 mx-2">
-        <ChevronLeftIcon />
-      </EtherButton>
-      <EtherButton class="w-6"> <ChevronRightIcon /> </EtherButton>
-    </h1>
+    <div class="flex items-center">
+      <h1 class="text-[1.3125rem] flex items-center mr-auto">
+        Transaction Details
+        <EtherButton class="w-6 mx-2">
+          <ChevronLeftIcon />
+        </EtherButton>
+        <EtherButton class="w-6"> <ChevronRightIcon /> </EtherButton>
+      </h1>
+
+      <MenuButton v-for="menu in menuButtonLists" class="mr-2" :key="menu">{{
+        menu
+      }}</MenuButton>
+    </div>
 
     <hr class="hr-space" />
 
@@ -34,284 +40,250 @@
       </div>
 
       <div class="table__row">
-        <!--   Block Height:     -->
-        <div class="flex border-b py-4">
+        <!--   Transaction Hash:     -->
+        <div class="flex py-4">
           <span class="flex-[0_0_25%] flex">
             <Tooltip
-              text="Also known as Block Number. The block height, which indicates the length of the blockchain, increases after the addition of the new block."
+              text="A TxHash or transaction hash is a unique 66-character identifier that is generated whenever a transaction is executed."
             >
               <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
             </Tooltip>
-            Block Height:
+            Transaction Hash:
           </span>
           <span class="flex-grow flex space-x-2 items-center">
-            <span class="font-semibold">15120169</span>
-            <EtherButton class="w-6">
-              <ChevronLeftIcon />
-            </EtherButton>
-            <EtherButton class="w-6"> <ChevronRightIcon /> </EtherButton
-          ></span>
+            <span
+              >0x71609b1e9ad89be8587aaa5969b00bcdbeff677372113d93374837c06290a909</span
+            >
+          </span>
         </div>
 
-        <!--   Block Height:     -->
-        <div class="flex border-b py-4">
+        <!--   Status:     -->
+        <div class="flex py-4">
           <span class="flex-[0_0_25%] flex">
-            <Tooltip text="The date and time at which a block is mined.">
+            <Tooltip text="The status of the transaction.">
               <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
             </Tooltip>
-            Timestamp:
+            Status:
           </span>
-          <span class="flex-grow"
-            ><ClockIcon class="w-5 inline-block mr-2" />
-            <span> {{ timeSince(Date.now() - 21327) }}</span>
+          <span class="flex-grow">
+            <span class="label-success inline-flex items-center"
+              ><CheckCircleIcon class="w-5 inline-block mr-2" /><b
+                >Success</b
+              ></span
+            >
           </span>
         </div>
 
         <!--        Transactions-->
-        <div class="flex border-b py-4">
+        <div class="flex py-4">
           <span class="flex-[0_0_25%] flex">
             <Tooltip
-              text="The number of transactions in the block. Internal transaction is transactions as a result of contract execution that involves Ether value."
+              text="Number of the block in which the transaction is recorded. Block confirmations indicate how many blocks have been added since the transaction was mined."
             >
               <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
             </Tooltip>
-            Transactions:
-          </span>
-          <span class="flex-grow">
-            <EtherButton class="inline-block w-auto px-3">
-              121 transactions</EtherButton
-            >
-            and
-            <EtherButton class="inline-block w-auto px-3">
-              52 contract internal transactions</EtherButton
-            >
-            in this block
-          </span>
-        </div>
-
-        <!--        Mined by:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="Miner who successfully include the block onto the blockchain."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Mined by:
-          </span>
-          <span class="flex-grow">
-            <span
-              ><a
-                href="#"
-                class="text-text-primary hover:text-text-primary-hover"
-                >0x829bd824b016326a401d083b33d092293333a830</a
-              >
-              <span class="font-semibold mx-2">(F2Pool Old) </span>
-              in 31 secs</span
-            >
-          </span>
-        </div>
-
-        <!--        Block Reward:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="For each block, the miner is rewarded with a finite amount of Ether on top of the fees paid for all transactions in the block."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Block Reward:
-          </span>
-          <span class="flex-grow">
-            2.062546738497306487 Ether (2 + 0.297243738094269589 -
-            0.234696999596963102)
-          </span>
-        </div>
-
-        <!--        Uncles Reward:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="An uncle block has a significantly lower reward than a normal block. Uncles reward is valid but rejected as it is not on the longest chain which is the working mechanism of the blockchain. Uncle block is important in Ethereum as it secures the blockchain."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Uncles Reward:
-          </span>
-          <span class="flex-grow">0 </span>
-        </div>
-
-        <!--        Difficulty:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Difficulty:
-          </span>
-          <span class="flex-grow">11,401,870,790,225,199</span>
-        </div>
-
-        <!--        Size:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="The block size is actually determined by the block's gas limit."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Size:
-          </span>
-          <span class="flex-grow"> 56,695 bytes</span>
-        </div>
-
-        <!--        Gas Used:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="The total gas used in the block and its percentage of gas filled in the block."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Gas Used:
-          </span>
-          <span class="flex-grow"> 10,781,219 (35.94%) -28% Gas Target</span>
-        </div>
-
-        <!--        Gas Limit:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="Total gas limit provided by all transactions in the block."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Gas Limit:
-          </span>
-          <span class="flex-grow"> 29,999,972</span>
-        </div>
-
-        <!--        Base Fee Per Gas:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="Post-London Upgrade, this represents the minimum gasUsed multiplier required for a tx to be included in a block. "
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Base Fee Per Gas:
+            Block:
           </span>
           <span class="flex-grow"
-            >0.000000021769059658 Ether (21.769059658 Gwei)</span
+            ><a
+              href="#"
+              class="text-text-primary hover:text-text-primary-hover mr-4"
+              >15125326</a
+            >
+            <span class="block-label">58 Block Confirmations</span>
+          </span>
+        </div>
+
+        <!--        Timestamp:-->
+        <div class="flex py-4">
+          <span class="flex-[0_0_25%] flex">
+            <Tooltip text="The date and time at which a transaction is mined.">
+              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+            </Tooltip>
+            Timestamp:
+          </span>
+          <span class="flex-grow">
+            13 mins ago (Jul-12-2022 03:04:58 AM +UTC)| Confirmed within 30 secs
+          </span>
+        </div>
+
+        <hr class="hr-space" />
+
+        <!--        From:-->
+        <div class="flex py-4">
+          <span class="flex-[0_0_25%] flex">
+            <Tooltip text="The sending party of the transaction.">
+              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+            </Tooltip>
+            From:
+          </span>
+          <span class="flex-grow">
+            <a
+              href="#"
+              class="text-text-primary hover:text-text-primary-hover mr-4"
+              >ridaz.eth</a
+            >
+          </span>
+        </div>
+
+        <!--        To:-->
+        <div class="flex py-4">
+          <span class="flex-[0_0_25%] flex">
+            <Tooltip
+              text="The receiving party of the transaction (could be a contract address)."
+            >
+              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+            </Tooltip>
+            To:
+          </span>
+          <span class="flex-grow">
+            <a
+              href="#"
+              class="text-text-primary hover:text-text-primary-hover mr-4"
+              >0x94fb0ab11e9af58070cd1b12c7ffcf1eb88d9d7d</a
+            >
+          </span>
+        </div>
+
+        <hr class="hr-space" />
+
+        <!--        Value:-->
+        <div class="flex py-4">
+          <span class="flex-[0_0_25%] flex">
+            <Tooltip
+              text="The value being transacted in Ether and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction."
+            >
+              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+            </Tooltip>
+            Value:
+          </span>
+          <span class="flex-grow">
+            <span class="bg-[rgba(119,131,143,.1)] px-2 py-1">0.01 Ether </span>
+            ($10.84)</span
           >
         </div>
 
-        <!--        Burnt Fees:-->
-        <div class="flex border-b py-4">
+        <!--        Transaction Fee:-->
+        <div class="flex py-4">
           <span class="flex-[0_0_25%] flex">
             <Tooltip
-              text="Post-London Upgrade, this represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed"
+              text="Amount paid to the miner for processing the transaction."
             >
               <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
             </Tooltip>
-            Burnt Fees:
+            Transaction Fee:
           </span>
-          <span class="flex-grow">0.234696999596963102 Ether</span>
+          <span class="flex-grow">0.000615562010133 Ether ($0.67)</span>
         </div>
 
+        <hr class="hr-space" />
+
+        <!--        Gas Price:-->
+        <div class="flex py-4">
+          <span class="flex-[0_0_25%] flex">
+            <Tooltip
+              text="Cost per unit of gas specified for the transaction, in Ether and Gwei. The higher the gas price the higher chance of getting included in a block."
+            >
+              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+            </Tooltip>
+            Gas Price:
+          </span>
+          <span class="flex-grow">
+            0.000000029312476673 Ether (29.312476673 Gwei)</span
+          >
+        </div>
+
+        <hr class="hr-space" />
         <!--        ----- scroll ---- -->
         <div class="collapse" :class="{ active: isShowMore }">
-          <!--        Extra Data:-->
-          <div class="flex border-b py-4">
+          <!--        Gas Limit & Usage by Txn:-->
+          <div class="flex py-4">
+            <span class="flex-[0_0_25%] flex">
+              <Tooltip
+                text="Maximum amount of gas allocated for the transaction & the amount eventually used. Normal ETH transfers involve 21,000 gas units while contracts involve higher values."
+              >
+                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+              </Tooltip>
+              Gas Limit & Usage by Txn:
+            </span>
+            <span class="flex-grow">21,000 | 21,000 (100%)</span>
+          </div>
+
+          <!--        Gas Fees:-->
+          <div class="flex py-4">
+            <span class="flex-[0_0_25%] flex">
+              <Tooltip
+                text="Base Fee refers to the network Base Fee at the time of the block, while Max Fee & Max Priority Fee refer to the max amount a user is willing to pay for their tx & to give to the miner respectively."
+              >
+                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+              </Tooltip>
+              Gas Fees:
+            </span>
+            <span class="flex-grow">
+              <span class="text-text-secondary">Base:</span> 27.812476673 Gwei
+              <b class="text-text-secondary mx-2">|</b>
+              <span class="text-text-secondary">Max:</span> 39.890703746 Gwei
+              <b class="text-text-secondary mx-2">|</b>
+              <span class="text-text-secondary">Max Priority:</span> 1.5
+              Gwei</span
+            >
+          </div>
+
+          <!--        Burnt & Txn Savings Fees:-->
+          <div class="flex py-4">
+            <span class="flex-[0_0_25%] flex">
+              <Tooltip
+                text="Post-London Upgrade, this represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed"
+              >
+                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+              </Tooltip>
+              Burnt & Txn Savings Fees:
+            </span>
+            <span class="flex-grow">
+              <button class="bg-[rgba(219,154,4,.1)] py-1 px-4 rounded-lg mr-1">
+                Burnt: 0.000584062010133 Ether ($0.63)
+              </button>
+              <button class="bg-[rgba(0,201,167,.1)] py-1 px-4 rounded-lg">
+                Txn Savings: 0.000222142768533 Ether ($0.24)
+              </button>
+            </span>
+          </div>
+
+          <!--       Others:-->
+          <div class="flex py-4">
             <span class="flex-[0_0_25%] flex">
               <Tooltip
                 text="Any data that can be included by the miner in the block."
               >
                 <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
               </Tooltip>
-              Extra Data:
+              Others:
             </span>
-            <span class="flex-grow">
-              七彩神仙鱼! (Hex:0xe4b883e5bda9e7a59ee4bb99e9b1bc040321)</span
+            <span class="flex-grow"
+              ><span class="bg-[rgba(119,131,143,.1)] px-2 py-1 mr-2">
+                Txn Type: 2 (EIP-1559) </span
+              ><span class="bg-[rgba(119,131,143,.1)] px-2 py-1">
+                Nonce: 1678
+              </span></span
             >
           </div>
 
-          <!--        Hash:-->
-          <div class="flex border-b py-4">
+          <!--        Input Data:-->
+          <div class="flex py-4">
             <span class="flex-[0_0_25%] flex">
               <Tooltip
                 text="The hash of the block header of the current block."
               >
                 <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
               </Tooltip>
-              Hash:
+              Input Data:
             </span>
             <span class="flex-grow">
-              0xa7c9ba0eea090ef4699ac25a1a15b9d45514de8d392c24bad188a34012425275</span
-            >
-          </div>
-
-          <!--        Parent Hash:-->
-          <div class="flex border-b py-4">
-            <span class="flex-[0_0_25%] flex">
-              <Tooltip
-                text="The hash of the block from which this block was generated, also known as its parent block."
-              >
-                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-              </Tooltip>
-              Parent Hash:
+              <textarea
+                class="border w-full bg-label-second-color rounded"
+                rows="3"
+              ></textarea>
             </span>
-            <span class="flex-grow">
-              <a
-                href="#"
-                class="text-text-primary hover:text-text-primary-hover"
-              >
-                0x664219a10962b7bff16f23788fe327ffc8a6c284aaacc94b385b95ef7e90ace7
-              </a>
-            </span>
-          </div>
-
-          <!--        Sha3Uncles:-->
-          <div class="flex border-b py-4">
-            <span class="flex-[0_0_25%] flex">
-              <Tooltip
-                text="The mechanism which Ethereum Javascript RLP encodes an empty string."
-              >
-                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-              </Tooltip>
-              Sha3Uncles:
-            </span>
-            <span class="flex-grow"
-              >0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347
-            </span>
-          </div>
-
-          <!--        StateRoot:-->
-          <div class="flex border-b py-4">
-            <span class="flex-[0_0_25%] flex">
-              <Tooltip text="The root of the state trie">
-                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-              </Tooltip>
-              StateRoot:
-            </span>
-            <span class="flex-grow"
-              >0xdc0403e433f99c1c9ddc63edd1a78ac1a5197d4e8119485178979c28534f61e4
-            </span>
-          </div>
-
-          <!--        Nonce:-->
-          <div class="flex border-b py-4">
-            <span class="flex-[0_0_25%] flex">
-              <Tooltip
-                text="Block nonce is a value used during mining to demonstrate proof of work for a block."
-              >
-                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-              </Tooltip>
-              Nonce:
-            </span>
-            <span class="flex-grow">0x7705d43180445dc0 </span>
           </div>
         </div>
       </div>
@@ -331,18 +303,18 @@
 </template>
 
 <script setup>
-import { timeSince } from "../../js/utils";
 import { ref } from "vue";
 import Tooltip from "../../components/Tooltip.vue";
 import {
   QuestionMarkCircleIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ClockIcon,
   ArrowSmUpIcon,
   ArrowSmDownIcon,
+  CheckCircleIcon,
 } from "@heroicons/vue/outline";
-import EtherButton from "../../components/EtherButton.vue";
+import EtherButton from "../../components/button/EtherButton.vue";
+import MenuButton from "../../components/button/MenuButton.vue";
 
 const isShowMore = ref(false);
 const selectedTabIndex = ref(0);
@@ -353,6 +325,8 @@ const tabs = [
   { name: "State" },
   { name: "comments" },
 ];
+
+const menuButtonLists = ["Buy", "Exchange", "Earn", "Gaming"];
 </script>
 
 <style scoped lang="scss">
