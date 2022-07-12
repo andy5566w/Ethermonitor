@@ -67,11 +67,7 @@
               >
             </p>
           </div>
-          <div
-            class="table__body--label text-label-text-second-color bg-label-second-color pr-2 pl-5 py-1 tracking-wider"
-          >
-            {{ d.value }} Eth
-          </div>
+          <div class="block-label">{{ d.value }} Eth</div>
         </div>
 
         <hr class="hr-space" />
@@ -86,7 +82,7 @@
 <script setup>
 import { timeSince } from "../../js/utils";
 import { upperFirst } from "lodash";
-import EtherButton from "../EtherButton.vue";
+import EtherButton from "../button/EtherButton.vue";
 
 const props = defineProps({
   data: {

@@ -9,8 +9,9 @@
     --secondary-text-color: #77838f;
     --border-color: #e5e7eb;
 }
-html, body{
-    font-family: Helvetica,Arial,sans-serif;
+
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
     font-size: .875rem;
     color: #1e2022;
     line-height: 1.5;
@@ -21,4 +22,30 @@ html, body{
     margin-bottom: 0.75rem;
     opacity: 0.75;
     width: 100%;
+}
+
+.label-success {
+    padding: 3px 5px;
+    border-radius: .5rem;
+    color: #00c9a7;
+    background-color: rgba(0, 201, 167, .1);
+}
+
+.block-label {
+    position: relative;
+    color: #77838f;
+    background-color: rgba(119, 131, 143, .1);
+    padding: 0.25rem 0.5rem 0.25rem 1.25rem;
+    letter-spacing: 0.05em;
+}
+
+.block-label:before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    transform: translate(-50%, 20%) rotate(45deg);
 }
