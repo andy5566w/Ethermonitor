@@ -7,8 +7,13 @@ const routes = [
   },
   {
     path: "/block/:id",
-    name: "Block",
-    component: () => import("../views/Block.vue"),
+    name: "singlePageOfBlock",
+    component: () => import("../views/SinglePage/Block.vue"),
+  },
+  {
+    path: "/tx/:id",
+    name: "singlePageOfTx",
+    component: () => import("../views/SinglePage/Transaction.vue"),
   },
 ];
 

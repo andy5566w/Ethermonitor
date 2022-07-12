@@ -315,9 +315,9 @@
 </template>
 
 <script setup>
-import { timeSince } from "../js/utils";
+import { timeSince } from "../../js/utils";
 import { ref } from "vue";
-import Tooltip from "../components/Tooltip.vue";
+import Tooltip from "../../components/Tooltip.vue";
 import {
   QuestionMarkCircleIcon,
   ChevronLeftIcon,
@@ -326,10 +326,9 @@ import {
   ArrowSmUpIcon,
   ArrowSmDownIcon,
 } from "@heroicons/vue/outline";
-import EtherButton from "../components/EtherButton.vue";
+import EtherButton from "../../components/EtherButton.vue";
 
 const isShowMore = ref(false);
-const collapseRef = ref(null);
 </script>
 
 <style scoped lang="scss">
