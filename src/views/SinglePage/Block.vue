@@ -315,7 +315,7 @@
 </template>
 
 <script setup>
-import { timeSince } from "../../js/utils";
+import { timeSince } from "../../utils/utils";
 import { ref } from "vue";
 import Tooltip from "../../components/Tooltip.vue";
 import {
