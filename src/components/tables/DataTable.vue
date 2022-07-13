@@ -20,7 +20,7 @@
           <td
             v-for="({ value }, index) in header"
             :key="index"
-            class="py-2 px-3"
+            class="p-3 border-b"
           >
             <slot
               :name="value"
@@ -33,10 +33,46 @@
         </tr>
       </tbody>
     </table>
+
+    <slot
+      name="table-footer"
+      :items="items"
+      :length="items.length"
+      :header="header"
+    >
+      <div class="text-text-secondary flex items-center pt-4 pb-8 px-2">
+        <div class="mr-auto">
+          Show
+          <select class="focus:outline-none border p-1 rounded">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          Records
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <EtherButton class="px-3">First</EtherButton>
+          <EtherButton class="px-3"
+            ><ChevronLeftIcon class="w-5"
+          /></EtherButton>
+          <EtherButton class="px-3"
+            ><p class="whitespace-nowrap">Page 1 of 605121</p></EtherButton
+          >
+          <EtherButton class="px-3"
+            ><ChevronRightIcon class="w-5"
+          /></EtherButton>
+          <EtherButton class="px-3">Last</EtherButton>
+        </div>
+      </div>
+    </slot>
   </div>
 </template>
 
 <script setup>
+import EtherButton from "../../components/button/EtherButton.vue";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/outline";
 defineProps({
   items: {
     type: Array,

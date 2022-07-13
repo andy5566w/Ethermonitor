@@ -15,7 +15,29 @@
       >
     </div>
 
-    <div class="table rounded bg-white p-5 w-full">
+    <div class="table rounded-md bg-white px-5 mt-4 w-full border">
+      <div class="flex items-center pt-3 pb-5">
+        <h2
+          class="text-table-header-color font-base text-base mr-auto self-start"
+        >
+          Block #15127977 to #15128001 (Total of 15,128,002 blocks)
+        </h2>
+
+        <div class="flex items-center space-x-3">
+          <EtherButton class="px-3">First</EtherButton>
+          <EtherButton class="px-3"
+            ><ChevronLeftIcon class="w-5"
+          /></EtherButton>
+          <EtherButton class="px-3"
+            ><p class="whitespace-nowrap">Page 1 of 605121</p></EtherButton
+          >
+          <EtherButton class="px-3"
+            ><ChevronRightIcon class="w-5"
+          /></EtherButton>
+          <EtherButton class="px-3">Last</EtherButton>
+        </div>
+      </div>
+
       <DataTable :items="blocks" :header="header">
         <template #Block="{ value }">
           <a
@@ -53,6 +75,17 @@
         </template>
       </DataTable>
     </div>
+    <p class="flex mt-5 mb-20 text-header-color text-sm">
+      <SearchIcon class="w-3 mr-2" />
+      Blocks are batches of transactions linked together via cryptographic
+      hashes. Any tampering of a block would invalidate all following blocks as
+      all subsequent hashes would change. Learn more about this page in our
+      <a
+        href="#"
+        class="text-text-primary hover:text-text-primary-hover font-semibold ml-2"
+        >Knowledge Base</a
+      >.
+    </p>
   </div>
 </template>
 
@@ -62,6 +95,12 @@ import { faker } from "@faker-js/faker";
 import { timeSince } from "../../utils/utils";
 import DataTable from "../../components/tables/DataTable.vue";
 import Progress from "../../components/Progress.vue";
+import EtherButton from "../../components/button/EtherButton.vue";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  SearchIcon,
+} from "@heroicons/vue/outline";
 
 const blocks = ref([]);
 const header = ref([

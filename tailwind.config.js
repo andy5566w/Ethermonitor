@@ -13,6 +13,7 @@ module.exports = {
         "label-text-second-color": "#77838f",
         "header-menu-color": "#8c98a4",
         "header-color": "#4a4f55",
+        "table-header-color": "#6c757e",
       },
     },
   },
