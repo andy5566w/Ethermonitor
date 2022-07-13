@@ -16,9 +16,9 @@
     </div>
 
     <div class="table rounded bg-white">
-      <BlocksTable :items="blocks" :header="header">
+      <DataTable :items="blocks" :header="header">
         <template #item.Block>ttte</template>
-      </BlocksTable>
+      </DataTable>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@
 <script setup>
 import { ref } from "vue";
 import { faker } from "@faker-js/faker";
-import BlocksTable from "../../components/tables/BlocksTable.vue";
+import DataTable from "../../components/tables/DataTable.vue";
 
 const blocks = ref([]);
 const header = ref([
