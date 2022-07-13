@@ -22,7 +22,13 @@
             :key="index"
             class="py-2 px-3"
           >
-            <slot :name="value">{{ item[value] }}</slot>
+            <slot
+              :name="value"
+              :item="item"
+              :value="item[value]"
+              :index="index"
+              >{{ item[value] }}</slot
+            >
           </td>
         </tr>
       </tbody>
