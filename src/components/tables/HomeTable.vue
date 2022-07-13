@@ -80,7 +80,7 @@
 </template>
 
 <script setup>
-import { timeSince } from "../../js/utils";
+import { timeSince } from "../../utils/utils";
 import { upperFirst } from "lodash";
 import EtherButton from "../button/EtherButton.vue";
 import { useRouter } from "vue-router";

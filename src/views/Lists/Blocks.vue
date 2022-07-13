@@ -15,9 +15,9 @@
       >
     </div>
 
-    <div class="table rounded bg-white">
+    <div class="table rounded bg-white p-5 w-full">
       <DataTable :items="blocks" :header="header">
-        <template #item.Block>ttte</template>
+        <template #Block></template>
       </DataTable>
     </div>
   </div>
@@ -30,52 +30,32 @@ import DataTable from "../../components/tables/DataTable.vue";
 
 const blocks = ref([]);
 const header = ref([
-  {
-    name: "Block",
-  },
-  {
-    name: "Age",
-  },
-  {
-    name: "Txn",
-  },
-  {
-    name: "Uncles",
-  },
-  {
-    name: "Miner",
-  },
-  {
-    name: "Gas Used",
-  },
-  {
-    name: "Gas Limit",
-  },
-  {
-    name: "Base Fee",
-  },
-  {
-    name: "Reward",
-  },
-  {
-    name: "Burnt Fees (ETH)",
-  },
+  { value: "Block", text: "Block" },
+  { value: "Age", text: "Age" },
+  { value: "Txn", text: "Txn" },
+  { value: "Uncles", text: "Uncles" },
+  { value: "Miner", text: "Miner" },
+  { value: "GasUsed", text: "Gas Used" },
+  { value: "GasLimit", text: "Gas Limit" },
+  { value: "BaseFee", text: "Base Fee" },
+  { value: "Reward", text: "Reward" },
+  { value: "BurntFees", text: "Burnt Fees (ETH)" },
 ]);
 
 const initialize = () => {
   for (let i = 0; i < 50; i++) {
-    const gasLimit = +(Math.random() * 3000000).toFixed(0);
+    const GasLimit = +(Math.random() * 3000000).toFixed(0);
     blocks.value.push({
       Block: "15127185",
       Age: Date.now() - +(Math.random() * 1000).toFixed(0),
       Txn: +(Math.random() * 300).toFixed(0),
       Uncles: 0,
       Miner: faker.internet.userName(),
-      "Gas Used": gasLimit - +(Math.random() * 1000000).toFixed(0),
-      "Gas Limit": gasLimit,
-      "Base Fee": +(Math.random() * 15 + 1).toFixed(2),
+      GasUsed: GasLimit - +(Math.random() * 1000000).toFixed(0),
+      GasLimit,
+      BaseFee: +(Math.random() * 15 + 1).toFixed(2),
       Reward: +(Math.random() * 3).toFixed(6),
-      "Burnt Fees (ETH)": +((Math.random() * 3) / 100).toFixed(6),
+      BurntFees: +((Math.random() * 3) / 100).toFixed(6),
     });
   }
 };
