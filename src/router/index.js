@@ -20,6 +20,11 @@ const routes = [
     name: "Multiple-blocks",
     component: () => import("../views/Lists/Blocks.vue"),
   },
+  {
+    path: "/transactions",
+    name: "Multiple-Txs",
+    component: () => import("../views/Lists/Transactions.vue"),
+  },
 ];
 
 const router = createRouter({
