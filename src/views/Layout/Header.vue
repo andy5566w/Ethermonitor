@@ -20,15 +20,29 @@
                 v-for="(item, index) in navigation"
                 :key="item.name"
                 @click.prevent="activeIndex = index"
+                class="tabs relative hover:text-text-primary"
                 :href="item.href"
                 :class="[
-                  index === activeIndex
-                    ? 'text-active'
-                    : 'text-gray-400 hover:bg-gray-700 hover:text-white',
+                  index === activeIndex ? 'text-active' : 'text-gray-400',
                   'px-3 py-2 rounded-md text-sm font-medium',
                 ]"
-                >{{ item.name }}</a
-              >
+                >{{ item.name }}
+                <nav
+                  v-if="item.lists"
+                  class="tabs__nav px-3 py-1 bg-white border-t-2 border-text-primary rounded-b shadow"
+                >
+                  <ul>
+                    <li
+                      v-for="({ name, isDivided }, index) in item.lists"
+                      :key="index"
+                      class="text-gray-400 hover:text-text-primary py-3 px-5"
+                      :class="{ 'border-b': isDivided }"
+                    >
+                      <span class="whitespace-nowrap"> {{ name }}</span>
+                    </li>
+                  </ul>
+                </nav>
+              </a>
             </div>
           </div>
 
@@ -70,14 +84,51 @@ import { MenuIcon, XIcon } from "@heroicons/vue/solid";
 import { ref, reactive } from "vue";
 
 const navigation = reactive([
-  { name: "Home", href: "#" },
-  { name: "Blockchain", href: "#" },
-  { name: "Token", href: "#" },
-  { name: "Resource", href: "#" },
+  {
+    name: "Home",
+    href: "#",
+  },
+  {
+    name: "Blockchain",
+    href: "#",
+    lists: [
+      { name: "View Txns" },
+      { name: "View Pending Txns" },
+      { name: "View Contract Internal Txns", isDivided: true },
+      { name: "View Blocks" },
+      { name: "Forked Blocks (Reorgs)" },
+      { name: "View Uncles", isDivided: true },
+      { name: "Top Accounts" },
+      { name: "Verified Contracts" },
+    ],
+  },
+  {
+    name: "Token",
+    href: "#",
+    lists: [
+      { name: "ERC20 Top Tokens" },
+      { name: "View ERC20 Transfers", isDivided: true },
+      { name: "ERC721 Top Tokens" },
+      { name: "View ERC721 Transfers" },
+      { name: "View ERC721 Transfers", isDivided: true },
+      { name: "ERC1155 Top Tokens" },
+      { name: "View ERC1155 Transfers " },
+    ],
+  },
+  {
+    name: "Resource",
+    href: "#",
+    lists: [
+      { name: "Charts & Stats" },
+      { name: "Top Statistics" },
+      { name: "Developer APIs", isDivided: true },
+      { name: "Ethereum Directory" },
+    ],
+  },
   { name: "More", href: "#" },
 ]);
 let activeIndex = ref(0);
-const toggleMenu = ref(false);
+let toggleMenu = ref(false);
 </script>
 
 <style scoped lang="scss">
@@ -101,6 +152,23 @@ const toggleMenu = ref(false);
     pointer-events: initial;
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+.tabs {
+  &__nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transition: all 0.2s ease-in;
+    opacity: 0;
+    z-index: -1;
+    transform: translateY(10%);
+  }
+  &:hover &__nav {
+    transform: translateY(2%);
+    opacity: 1;
+    z-index: 1;
   }
 }
 </style>
