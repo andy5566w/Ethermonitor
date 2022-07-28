@@ -101,7 +101,6 @@ const blocks = computed(() => {
 
 onMounted(() => {
   store.dispatch("transactions/fetchTxsFromAPI");
-  store.dispatch("blocks/fetchBlocksFromAPI");
 });
 </script>
 
