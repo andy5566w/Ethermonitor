@@ -1,7 +1,8 @@
 <template>
   <section class="block container mx-auto p-5 pb-16">
     <h1 class="text-[1.3125rem] mb-3">
-      Block <span class="text-[80%] text-text-secondary">#{{ blockId }}</span>
+      Block
+      <span class="text-[80%] text-text-secondary">#{{ route.params.id }}</span>
     </h1>
     <div class="table round bg-white w-full border rounded px-5">
       <div class="table__tabs border-b -ml-5 -mr-5">
@@ -29,11 +30,11 @@
             Block Number:
           </span>
           <span class="flex-grow flex space-x-2 items-center">
-            <span class="font-semibold">{{ blockId }}</span>
-            <EtherButton class="w-6" @click="navigateBlock(blockId--)">
+            <span class="font-semibold">{{ route.params.id }}</span>
+            <EtherButton class="w-6" @click="navigateBlock(false)">
               <ChevronLeftIcon />
             </EtherButton>
-            <EtherButton class="w-6" @click="navigateBlock(blockId++)">
+            <EtherButton class="w-6" @click="navigateBlock()">
               <ChevronRightIcon /> </EtherButton
           ></span>
         </div>
@@ -175,7 +176,7 @@
               </Tooltip>
               Extra Data:
             </span>
-            <span class="flex-grow"> {{ block.extraData }}</span>
+            <p class="break-all">{{ block.extraData }}</p>
           </div>
 
           <!--        Uncle Hash:-->
@@ -285,7 +286,6 @@ const route = useRoute();
 const router = useRouter();
 const isShowMore = ref(false);
 const block = ref({});
-const { id: blockId } = route.params;
 
 block.value = fetchBlock(route.params.id);
 watchEffect(async () => {
@@ -295,7 +295,8 @@ watchEffect(async () => {
   }
 });
 
-const navigateBlock = (blockId) => {
+const navigateBlock = (isIncrement = true) => {
+  const blockId = isIncrement ? +route.params.id + 1 : route.params.id - 1;
   router.push({ name: "singlePageOfBlock", params: { id: blockId } });
 };
 </script>
@@ -327,7 +328,7 @@ const navigateBlock = (blockId) => {
       transition: all 0.2s ease;
       transform: translateY(0%);
       opacity: 1;
-      height: 284px;
+      height: 300px;
       &.active {
         opacity: 0;
         pointer-events: none;
