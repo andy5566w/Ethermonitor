@@ -23,15 +23,14 @@ export const fetchBlock = (currentNumber) => {
 export const initializeWeb3 = () => {
   try {
     web3Instance = new Web3();
+    const url =
+      "http://" +
+      import.meta.env.VITE_GETH_HOSTNAME +
+      ":" +
+      import.meta.env.VITE_GETH_RPCPORT;
+    console.log(`your url is ${url}`);
 
-    web3Instance.setProvider(
-      new web3Instance.providers.HttpProvider(
-        "http://" +
-          import.meta.env.VITE_GETH_HOSTNAME +
-          ":" +
-          import.meta.env.VITE_GETH_RPCPORT
-      )
-    );
+    web3Instance.setProvider(new web3Instance.providers.HttpProvider(url));
     if (!web3Instance.isConnected()) {
       alert(`web3 is disconnected`);
     }
