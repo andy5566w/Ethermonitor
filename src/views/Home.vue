@@ -49,8 +49,8 @@
   <div
     class="sm:container mx-10 sm:mx-auto border-amber-900 rounded-xl mt-5 mb-16 lg:flex flex-wrap"
   >
-    <div class="blocks shadow-md md:flex-1 rounded-xl overflow-hidden">
-      <HomeTable header-text="Latest Blocks" :data="blocks" icon-text="Bk" />
+    <div class="blocks shadow-md md:flex-1 rounded-xl">
+      <HomeTableBlocks header-text="Latest Blocks" :data="blocks" />
     </div>
     <div class="my-5 lg:my-0 mx-5"></div>
     <div class="transactions shadow-md md:flex-1 rounded-xl overflow-hidden">
@@ -67,6 +67,7 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import HomeSearch from "../components/HomeSearch.vue";
+import HomeTableBlocks from "../components/tables/HomeTableBlocks.vue";
 import HomeTable from "../components/tables/HomeTable.vue";
 import HomeChart from "../components/chart/chart.vue";
 import { CubeTransparentIcon } from "@heroicons/vue/solid";

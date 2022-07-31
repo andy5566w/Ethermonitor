@@ -14,7 +14,7 @@ export const getters = {
     return state.currentStats;
   },
   getters_blocks(state) {
-    return state.blocks;
+    return state.blocks.sort((a, b) => b.number - a.number);
   },
 };
 
