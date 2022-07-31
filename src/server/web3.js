@@ -1,8 +1,6 @@
 import Web3 from "web3";
 import store from "../store";
 
-const GETH_HOSTNAME = "18.189.248.109";
-const GETH_RPCPORT = 8545;
 let web3Instance = null;
 let timer = null;
 const blocks = [];
@@ -28,7 +26,10 @@ export const initializeWeb3 = () => {
 
     web3Instance.setProvider(
       new web3Instance.providers.HttpProvider(
-        "http://" + GETH_HOSTNAME + ":" + GETH_RPCPORT
+        "http://" +
+          import.meta.env.VITE_GETH_HOSTNAME +
+          ":" +
+          import.meta.env.VITE_GETH_RPCPORT
       )
     );
     if (!web3Instance.isConnected()) {
@@ -55,7 +56,7 @@ export const updateBlockList = (isInitial = false) => {
 };
 
 export const listenLatestData = () => {
-  if (timer != null) {
+  if (timer != null || (web3Instance && !web3Instance.isConnected())) {
     clearInterval(timer);
     timer = null;
   }
