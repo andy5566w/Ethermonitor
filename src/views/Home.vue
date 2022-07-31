@@ -72,6 +72,7 @@ import HomeTable from "../components/tables/HomeTable.vue";
 import HomeChart from "../components/chart/chart.vue";
 import { CubeTransparentIcon } from "@heroicons/vue/solid";
 import { useStore } from "vuex";
+import { listenLatestData } from "../server/web3";
 
 const store = useStore();
 const panelData = computed(() => {
@@ -102,6 +103,7 @@ const blocks = computed(() => {
 
 onMounted(() => {
   store.dispatch("transactions/fetchTxsFromAPI");
+  listenLatestData();
 });
 </script>
 

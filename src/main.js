@@ -3,9 +3,8 @@ import router from "./router";
 import App from "./App.vue";
 import store from "./store";
 import "./index.css";
-import { initializeWeb3, listenLatestData } from "./server/web3";
+import { initializeWeb3 } from "./server/web3";
 
 createApp(App).use(router).use(store).mount("#app");
 
 initializeWeb3();
-listenLatestData();
