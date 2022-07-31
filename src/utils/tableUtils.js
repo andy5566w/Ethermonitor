@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const getTime = (time) => {
   return (Date.now() / 1000 - time).toFixed(0) + " sec";
 };
@@ -29,7 +31,7 @@ export const getSize = (size) => {
   return (size / 1000).toFixed(3) + " kB";
 };
 
-const calculateAge = (timestamp) => {
+export const calculateAge = (timestamp) => {
   function dhms(ms) {
     const days = Math.floor(ms / (24 * 60 * 60 * 1000));
     const daysms = ms % (24 * 60 * 60 * 1000);
@@ -61,4 +63,9 @@ const calculateAge = (timestamp) => {
   const txtTime = moment.utc(timestamp);
   const diffInMs = dateNow.diff(txtTime);
   return dhms(diffInMs);
+};
+
+export const numberWithCommas = (number) => {
+  if (isNaN(number)) return 0;
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

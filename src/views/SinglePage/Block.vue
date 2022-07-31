@@ -1,7 +1,7 @@
 <template>
   <section class="block container mx-auto p-5 pb-16">
     <h1 class="text-[1.3125rem] mb-3">
-      Block <span class="text-[80%] text-text-secondary">#15113017</span>
+      Block <span class="text-[80%] text-text-secondary">#{{ blockId }}</span>
     </h1>
     <div class="table round bg-white w-full border rounded px-5">
       <div class="table__tabs border-b -ml-5 -mr-5">
@@ -26,18 +26,32 @@
             >
               <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
             </Tooltip>
-            Block Height:
+            Block Number:
           </span>
           <span class="flex-grow flex space-x-2 items-center">
-            <span class="font-semibold">15120169</span>
-            <EtherButton class="w-6">
+            <span class="font-semibold">{{ blockId }}</span>
+            <EtherButton class="w-6" @click="navigateBlock(blockId--)">
               <ChevronLeftIcon />
             </EtherButton>
-            <EtherButton class="w-6"> <ChevronRightIcon /> </EtherButton
+            <EtherButton class="w-6" @click="navigateBlock(blockId++)">
+              <ChevronRightIcon /> </EtherButton
           ></span>
         </div>
 
-        <!--   Block Height:     -->
+        <!--   Block hash:     -->
+        <div class="flex border-b py-4">
+          <span class="flex-[0_0_25%] flex">
+            <Tooltip text="The date and time at which a block is mined.">
+              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+            </Tooltip>
+            Block Hash:
+          </span>
+          <span class="flex-grow">
+            <span> {{ block.hash }}</span>
+          </span>
+        </div>
+
+        <!--   Timestamp:     -->
         <div class="flex border-b py-4">
           <span class="flex-[0_0_25%] flex">
             <Tooltip text="The date and time at which a block is mined.">
@@ -47,7 +61,7 @@
           </span>
           <span class="flex-grow"
             ><ClockIcon class="w-5 inline-block mr-2" />
-            <span> {{ timeSince(Date.now() - 21327) }}</span>
+            <span> {{ calculateAge(block.timestamp) }}</span>
           </span>
         </div>
 
@@ -63,12 +77,17 @@
           </span>
           <span class="flex-grow">
             <EtherButton class="inline-block w-auto px-3">
-              121 transactions</EtherButton
+              {{
+                Array.isArray(block.transactions)
+                  ? block.transactions.length
+                  : 0
+              }}
+              transactions</EtherButton
             >
-            and
-            <EtherButton class="inline-block w-auto px-3">
-              52 contract internal transactions</EtherButton
-            >
+            <!--            and-->
+            <!--            <EtherButton class="inline-block w-auto px-3">-->
+            <!--              52 contract internal transactions</EtherButton-->
+            <!--            >-->
             in this block
           </span>
         </div>
@@ -84,45 +103,12 @@
             Mined by:
           </span>
           <span class="flex-grow">
-            <span
-              ><a
-                href="#"
-                class="text-text-primary hover:text-text-primary-hover"
-                >0x829bd824b016326a401d083b33d092293333a830</a
-              >
-              <span class="font-semibold mx-2">(F2Pool Old) </span>
-              in 31 secs</span
+            <a
+              href="#"
+              class="text-text-primary hover:text-text-primary-hover"
+              >{{ block.miner }}</a
             >
           </span>
-        </div>
-
-        <!--        Block Reward:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="For each block, the miner is rewarded with a finite amount of Ether on top of the fees paid for all transactions in the block."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Block Reward:
-          </span>
-          <span class="flex-grow">
-            2.062546738497306487 Ether (2 + 0.297243738094269589 -
-            0.234696999596963102)
-          </span>
-        </div>
-
-        <!--        Uncles Reward:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="An uncle block has a significantly lower reward than a normal block. Uncles reward is valid but rejected as it is not on the longest chain which is the working mechanism of the blockchain. Uncle block is important in Ethereum as it secures the blockchain."
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Uncles Reward:
-          </span>
-          <span class="flex-grow">0 </span>
         </div>
 
         <!--        Difficulty:-->
@@ -135,7 +121,7 @@
             </Tooltip>
             Difficulty:
           </span>
-          <span class="flex-grow">11,401,870,790,225,199</span>
+          <span class="flex-grow">{{ block.difficulty }}</span>
         </div>
 
         <!--        Size:-->
@@ -148,7 +134,7 @@
             </Tooltip>
             Size:
           </span>
-          <span class="flex-grow"> 56,695 bytes</span>
+          <span class="flex-grow"> {{ getSize(block.size) }}</span>
         </div>
 
         <!--        Gas Used:-->
@@ -161,7 +147,7 @@
             </Tooltip>
             Gas Used:
           </span>
-          <span class="flex-grow"> 10,781,219 (35.94%) -28% Gas Target</span>
+          <span class="flex-grow"> {{ numberWithCommas(block.gasUsed) }}</span>
         </div>
 
         <!--        Gas Limit:-->
@@ -174,35 +160,7 @@
             </Tooltip>
             Gas Limit:
           </span>
-          <span class="flex-grow"> 29,999,972</span>
-        </div>
-
-        <!--        Base Fee Per Gas:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="Post-London Upgrade, this represents the minimum gasUsed multiplier required for a tx to be included in a block. "
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Base Fee Per Gas:
-          </span>
-          <span class="flex-grow"
-            >0.000000021769059658 Ether (21.769059658 Gwei)</span
-          >
-        </div>
-
-        <!--        Burnt Fees:-->
-        <div class="flex border-b py-4">
-          <span class="flex-[0_0_25%] flex">
-            <Tooltip
-              text="Post-London Upgrade, this represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed"
-            >
-              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-            </Tooltip>
-            Burnt Fees:
-          </span>
-          <span class="flex-grow">0.234696999596963102 Ether</span>
+          <span class="flex-grow"> {{ numberWithCommas(block.gasLimit) }}</span>
         </div>
 
         <!--        ----- scroll ---- -->
@@ -217,12 +175,10 @@
               </Tooltip>
               Extra Data:
             </span>
-            <span class="flex-grow">
-              七彩神仙鱼! (Hex:0xe4b883e5bda9e7a59ee4bb99e9b1bc040321)</span
-            >
+            <span class="flex-grow"> {{ block.extraData }}</span>
           </div>
 
-          <!--        Hash:-->
+          <!--        Uncle Hash:-->
           <div class="flex border-b py-4">
             <span class="flex-[0_0_25%] flex">
               <Tooltip
@@ -230,11 +186,9 @@
               >
                 <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
               </Tooltip>
-              Hash:
+              Uncle Hash:
             </span>
-            <span class="flex-grow">
-              0xa7c9ba0eea090ef4699ac25a1a15b9d45514de8d392c24bad188a34012425275</span
-            >
+            <span class="flex-grow"> {{ block.sha3Uncles }}</span>
           </div>
 
           <!--        Parent Hash:-->
@@ -248,27 +202,7 @@
               Parent Hash:
             </span>
             <span class="flex-grow">
-              <a
-                href="#"
-                class="text-text-primary hover:text-text-primary-hover"
-              >
-                0x664219a10962b7bff16f23788fe327ffc8a6c284aaacc94b385b95ef7e90ace7
-              </a>
-            </span>
-          </div>
-
-          <!--        Sha3Uncles:-->
-          <div class="flex border-b py-4">
-            <span class="flex-[0_0_25%] flex">
-              <Tooltip
-                text="The mechanism which Ethereum Javascript RLP encodes an empty string."
-              >
-                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
-              </Tooltip>
-              Sha3Uncles:
-            </span>
-            <span class="flex-grow"
-              >0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347
+              {{ block.parentHash }}
             </span>
           </div>
 
@@ -280,9 +214,7 @@
               </Tooltip>
               StateRoot:
             </span>
-            <span class="flex-grow"
-              >0xdc0403e433f99c1c9ddc63edd1a78ac1a5197d4e8119485178979c28534f61e4
-            </span>
+            <span class="flex-grow">{{ block.stateRoot }} </span>
           </div>
 
           <!--        Nonce:-->
@@ -295,7 +227,22 @@
               </Tooltip>
               Nonce:
             </span>
-            <span class="flex-grow">0x7705d43180445dc0 </span>
+            <span class="flex-grow">{{ block.nonce }} </span>
+          </div>
+
+          <!--        Number of Uncle Blocks:-->
+          <div class="flex border-b py-4">
+            <span class="flex-[0_0_25%] flex">
+              <Tooltip
+                text="Block nonce is a value used during mining to demonstrate proof of work for a block."
+              >
+                <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+              </Tooltip>
+              Number of uncle blocks:
+            </span>
+            <span class="flex-grow"
+              >{{ Array.isArray(block.uncles) ? block.uncles.length : 0 }}
+            </span>
           </div>
         </div>
       </div>
@@ -315,20 +262,42 @@
 </template>
 
 <script setup>
-import { timeSince } from "../../utils/utils";
-import { ref } from "vue";
+import {
+  calculateAge,
+  getSize,
+  numberWithCommas,
+} from "../../utils/tableUtils";
+import { ref, watchEffect } from "vue";
 import Tooltip from "../../components/Tooltip.vue";
 import {
-  QuestionMarkCircleIcon,
+  ArrowSmDownIcon,
+  ArrowSmUpIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ClockIcon,
-  ArrowSmUpIcon,
-  ArrowSmDownIcon,
+  QuestionMarkCircleIcon,
 } from "@heroicons/vue/outline";
 import EtherButton from "../../components/button/EtherButton.vue";
+import { useRoute, useRouter } from "vue-router";
+import { fetchBlock } from "../../server/web3";
 
+const route = useRoute();
+const router = useRouter();
 const isShowMore = ref(false);
+const block = ref({});
+const { id: blockId } = route.params;
+
+block.value = fetchBlock(route.params.id);
+watchEffect(async () => {
+  block.value = await fetchBlock(route.params.id);
+  if (block.value == null) {
+    alert("block don't exist");
+  }
+});
+
+const navigateBlock = (blockId) => {
+  router.push({ name: "singlePageOfBlock", params: { id: blockId } });
+};
 </script>
 
 <style scoped lang="scss">

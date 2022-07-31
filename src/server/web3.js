@@ -8,14 +8,17 @@ let timer = null;
 const blocks = [];
 export const LIMIT_BLOCK_LENGTH = 10;
 
-const fetchBlock = (currentNumber) => {
-  web3Instance.eth.getBlock(currentNumber, function (error, result) {
-    if (error) {
-      console.log("fetchBlock error: ", error);
-      return;
-    }
-    store.dispatch("blocks/storeBlock", result);
-    console.log("result: ", result);
+export const fetchBlock = (currentNumber) => {
+  return new Promise((res, rej) => {
+    web3Instance.eth.getBlock(currentNumber, function (error, result) {
+      if (error) {
+        console.log("fetchBlock error: ", error);
+        rej(error);
+        return;
+      }
+      store.dispatch("blocks/storeBlock", result);
+      res(result);
+    });
   });
 };
 
