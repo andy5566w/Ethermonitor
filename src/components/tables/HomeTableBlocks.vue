@@ -4,13 +4,14 @@
     :items="blocks"
     :header="header"
   >
-    <template #number="{ value }"
-      ><a
-        href="#"
-        class="text-text-primary hover:text-text-primary-hover cursor-pointer"
-        >{{ value }}</a
-      ></template
-    >
+    <template #number="{ value }">
+      <router-link
+        :to="{ name: 'singlePageOfBlock', params: { id: value } }"
+        tag="a"
+        class="text-text-primary hover:text-text-primary-hover"
+        >{{ value }}</router-link
+      >
+    </template>
 
     <template #hash="{ value }">
       <div class="truncate">

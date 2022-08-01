@@ -5,7 +5,10 @@
         <div
           class="flex items-center justify-between py-3 flex-wrap lg:flex-nowrap"
         >
-          <div class="flex-shrink-0 flex items-center">
+          <div
+            class="flex-shrink-0 flex items-center cursor-pointer"
+            @click="router.push({ name: 'Home' })"
+          >
             <img
               class="h-8 w-8"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
@@ -82,7 +85,9 @@
 import { Disclosure } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/solid";
 import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const navigation = reactive([
   {
     name: "Home",
