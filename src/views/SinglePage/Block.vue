@@ -30,7 +30,7 @@
             Block Number:
           </span>
           <span class="flex-grow flex space-x-2 items-center">
-            <span class="font-semibold">{{ route.params.id }}</span>
+            <span class="font-semibold">{{ block.number }}</span>
             <EtherButton class="w-6" @click="navigateBlock(false)">
               <ChevronLeftIcon />
             </EtherButton>
@@ -296,7 +296,9 @@ watchEffect(async () => {
 });
 
 const navigateBlock = (isIncrement = true) => {
-  const blockId = isIncrement ? +route.params.id + 1 : route.params.id - 1;
+  const blockId = isIncrement
+    ? +block.value.number + 1
+    : block.value.number - 1;
   router.push({ name: "singlePageOfBlock", params: { id: blockId } });
 };
 </script>

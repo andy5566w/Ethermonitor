@@ -15,10 +15,11 @@
 
     <template #hash="{ value }">
       <div class="truncate">
-        <a
-          href="#"
-          class="text-text-primary hover:text-text-primary-hover cursor-pointer truncate"
-          >{{ value }}</a
+        <router-link
+          :to="{ name: 'singlePageOfBlock', params: { id: value } }"
+          tag="a"
+          class="text-text-primary hover:text-text-primary-hover"
+          >{{ value }}</router-link
         >
       </div>
     </template>
