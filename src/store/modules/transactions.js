@@ -3,7 +3,10 @@
 export const namespaced = true;
 
 export const state = {
-  transactions: [],
+  // Below id is test id
+  transactions: [
+    "0x59f9d2896b5b12e8aac387842076d202f6ae4fdf19951c092570645225287725",
+  ],
 };
 
 export const getters = {
@@ -13,19 +16,15 @@ export const getters = {
 };
 
 export const mutations = {
-  MUTATE_TRANSACTIONS(state, payload) {
-    state.transactions = payload;
+  UPDATE_TRANSACTIONS(state, payload) {
+    state.transactions.push(payload);
   },
 };
 
 export const actions = {
-  async fetchTxsFromAPI({ commit }) {
-    //   const {
-    //     data: {
-    //       data: { data },
-    //     },
-    //   } = await fetchTxs();
-    // TODO 先用 fake data
-    commit("MUTATE_TRANSACTIONS", []);
+  async storeTransactionIds({ commit }, txs = []) {
+    txs.forEach((id) => {
+      commit("UPDATE_TRANSACTIONS", id);
+    });
   },
 };

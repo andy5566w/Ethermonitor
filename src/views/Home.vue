@@ -54,12 +54,7 @@
     </div>
     <div class="my-5 lg:my-0 mx-5"></div>
     <div class="transactions shadow-md md:flex-1 rounded-xl overflow-hidden">
-      <HomeTable
-        header-text="Latest Transactions"
-        :data="blocks"
-        icon-text="Tx"
-        :type="'transactions'"
-      />
+      <HomeTableTxs />
     </div>
   </div>
 </template>
@@ -68,7 +63,7 @@
 import { computed, onMounted } from "vue";
 import HomeSearch from "../components/HomeSearch.vue";
 import HomeTableBlocks from "../components/tables/HomeTableBlocks.vue";
-import HomeTable from "../components/tables/HomeTable.vue";
+import HomeTableTxs from "../components/tables/HomeTableTxs.vue";
 import HomeChart from "../components/chart/chart.vue";
 import { CubeTransparentIcon } from "@heroicons/vue/solid";
 import { useStore } from "vuex";
@@ -102,7 +97,6 @@ const blocks = computed(() => {
 });
 
 onMounted(() => {
-  store.dispatch("transactions/fetchTxsFromAPI");
   listenLatestData();
 });
 </script>

@@ -284,7 +284,7 @@ import { fetchBlock } from "../../server/web3";
 
 const route = useRoute();
 const router = useRouter();
-const isShowMore = ref(false);
+let isShowMore = ref(false);
 const block = ref({});
 
 block.value = fetchBlock(route.params.id);

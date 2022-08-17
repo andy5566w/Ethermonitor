@@ -8,13 +8,17 @@ export const LIMIT_BLOCK_LENGTH = 10;
 
 export const fetchBlock = (currentNumber) => {
   return new Promise((resolve, reject) => {
-    web3Instance.eth.getBlock(currentNumber, function (error, result) {
+    web3Instance.eth.getBlock(currentNumber, async function (error, result) {
       if (error) {
         console.log("fetchBlock error: ", error);
         reject(error);
         return;
       }
-      store.dispatch("blocks/storeBlock", result);
+      await store.dispatch("blocks/storeBlock", result);
+      await store.dispatch(
+        "transactions/storeTransactionIds",
+        result.transactions
+      );
       resolve(result);
     });
   });
