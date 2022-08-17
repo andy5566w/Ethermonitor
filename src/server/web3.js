@@ -7,16 +7,51 @@ const blocks = [];
 export const LIMIT_BLOCK_LENGTH = 10;
 
 export const fetchBlock = (currentNumber) => {
-  return new Promise((res, rej) => {
+  return new Promise((resolve, reject) => {
     web3Instance.eth.getBlock(currentNumber, function (error, result) {
       if (error) {
         console.log("fetchBlock error: ", error);
-        rej(error);
+        reject(error);
         return;
       }
       store.dispatch("blocks/storeBlock", result);
-      res(result);
+      resolve(result);
     });
+  });
+};
+
+export const fetchTx = (txId) => {
+  return new Promise((resolve, reject) => {
+    console.log("txId: ", txId);
+    web3Instance.eth.getTransaction(txId, function (error, result) {
+      console.log("error", error);
+      if (error) {
+        reject(error);
+        return;
+      }
+      console.log("fetchTx:", result);
+      resolve(result);
+    });
+  });
+};
+
+export const fetchTxByBlockHash = (blockHash) => {
+  // 這是測試用的
+  return new Promise((resolve, reject) => {
+    console.log("blockHash: ", blockHash);
+    web3Instance.eth.getTransactionFromBlock(
+      blockHash,
+      function (error, result) {
+        console.log("error", error);
+        if (error) {
+          reject(error);
+          return;
+        }
+        console.log("result", result);
+        console.log(BigInt(result.value));
+        resolve(result);
+      }
+    );
   });
 };
 
