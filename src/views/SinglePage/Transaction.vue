@@ -9,13 +9,20 @@
         <EtherButton class="w-6"> <ChevronRightIcon /> </EtherButton>
       </h1>
 
-      <MenuButton v-for="menu in menuButtonLists" class="mr-2" :key="menu">{{ menu }}</MenuButton>
+      <MenuButton v-for="menu in menuButtonLists" class="mr-2" :key="menu">{{
+        menu
+      }}</MenuButton>
     </div>
     <hr class="hr-space" />
 
     <p class="text-text-secondary text-md pb-3">
-      <b>Featured:</b> Curious on Ethereum's hottest 🔥 trading pairs? View top pairs and details with
-      <a href="#" class="text-text-primary hover:text-text-primary-hover font-semibold">DEX Trading Pairs!</a>
+      <b>Featured:</b> Curious on Ethereum's hottest 🔥 trading pairs? View top
+      pairs and details with
+      <a
+        href="#"
+        class="text-text-primary hover:text-text-primary-hover font-semibold"
+        >DEX Trading Pairs!</a
+      >
     </p>
 
     <div class="table round bg-white w-full border rounded px-5">
@@ -58,7 +65,7 @@
             Block Number:
           </span>
           <span class="flex-grow">
-            <span class="block-label">{{ tx.blockNumber || "pending" }}</span>
+            {{ tx.blockNumber || "pending" }}
           </span>
         </div>
 
@@ -73,7 +80,9 @@
             Block Hash:
           </span>
           <span class="flex-grow">
-            <span class="flex-grow flex space-x-2 items-center">{{ tx.blockHash || "pending" }}</span>
+            <span class="flex-grow flex space-x-2 items-center">{{
+              tx.blockHash || "pending"
+            }}</span>
           </span>
         </div>
 
@@ -86,20 +95,30 @@
             From:
           </span>
           <span class="flex-grow">
-            <a href="#" class="text-text-primary hover:text-text-primary-hover mr-4">{{ tx.from }}</a>
+            <a
+              href="#"
+              class="text-text-primary hover:text-text-primary-hover mr-4"
+              >{{ tx.from }}</a
+            >
           </span>
         </div>
 
         <!--        To:-->
         <div class="flex py-4">
           <span class="flex-[0_0_25%] flex">
-            <Tooltip text="The receiving party of the transaction (could be a contract address).">
+            <Tooltip
+              text="The receiving party of the transaction (could be a contract address)."
+            >
               <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
             </Tooltip>
             To:
           </span>
           <span class="flex-grow">
-            <a href="#" class="text-text-primary hover:text-text-primary-hover mr-4">{{ tx.to }}</a>
+            <a
+              href="#"
+              class="text-text-primary hover:text-text-primary-hover mr-4"
+              >{{ tx.to }}</a
+            >
           </span>
         </div>
 
@@ -116,7 +135,9 @@
             Value:
           </span>
           <span class="flex-grow">
-            <span class="bg-[rgba(119,131,143,.1)] px-2 py-1">{{ tx.value.c[0] / 10000 }} Ether </span>
+            <span class="bg-[rgba(119,131,143,.1)] px-2 py-1"
+              >{{ tx.value.c[0] / 10000 }} Ether
+            </span>
           </span>
         </div>
 
@@ -133,7 +154,7 @@
           <span class="flex-grow"> {{ gasPriceFormat }} Ether </span>
         </div>
 
-        <!--        Gas Fees:-->
+        <!--        Gas Used:-->
         <div class="flex py-4">
           <span class="flex-[0_0_25%] flex">
             <Tooltip
@@ -141,12 +162,25 @@
             >
               <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
             </Tooltip>
-            Gas Fees:
+            Gas Used:
           </span>
           <span class="flex-grow"> {{ tx.gas }}</span>
         </div>
 
-        <!--        Gas Fees:-->
+        <!--        TX price:-->
+        <div class="flex py-4">
+          <span class="flex-[0_0_25%] flex">
+            <Tooltip
+              text="Base Fee refers to the network Base Fee at the time of the block, while Max Fee & Max Priority Fee refer to the max amount a user is willing to pay for their tx & to give to the miner respectively."
+            >
+              <QuestionMarkCircleIcon class="w-5 mr-2 text-text-secondary" />
+            </Tooltip>
+            Transaction price:
+          </span>
+          <span class="flex-grow"> {{ txPrice }}</span>
+        </div>
+
+        <!--        nonce:-->
         <div class="flex py-4">
           <span class="flex-[0_0_25%] flex">
             <Tooltip
@@ -191,14 +225,11 @@ import {
   QuestionMarkCircleIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ArrowSmUpIcon,
-  ArrowSmDownIcon,
-  CheckCircleIcon,
 } from "@heroicons/vue/outline";
 import EtherButton from "../../components/button/EtherButton.vue";
 import MenuButton from "../../components/button/MenuButton.vue";
 import { useRoute } from "vue-router";
-import { fetchTx, fetchTxByBlockHash } from "../../server/web3";
+import { fetchTx } from "../../server/web3";
 import Web3 from "web3";
 const web3 = new Web3();
 const route = useRoute();
@@ -229,6 +260,11 @@ watchEffect(async () => {
 
 const gasPriceFormat = computed(() => {
   return tx.value.gasPrice ? web3.fromWei(tx.value.gasPrice, "ether") : 0;
+});
+
+const txPrice = computed(() => {
+  if (!tx.value.gasPrice || !tx.value.gas) return 0;
+  return web3.fromWei(tx.value.gasPrice * tx.value.gas, "ether");
 });
 </script>
 
