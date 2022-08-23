@@ -34,10 +34,11 @@ export const actions = {
     const tx = await fetchTx(txId);
     commit("UPDATE_TRANSACTIONS", tx);
   },
-  async testTransactionID({ commit }) {
-    const tx = await fetchTx(
-      "0x59f9d2896b5b12e8aac387842076d202f6ae4fdf19951c092570645225287725"
-    );
+  async testTransactionID({ commit, state }) {
+    const testHash =
+      "0x59f9d2896b5b12e8aac387842076d202f6ae4fdf19951c092570645225287725";
+    if (state.transactions.some(({ hash }) => hash === testHash)) return;
+    const tx = await fetchTx(testHash);
     commit("UPDATE_TRANSACTIONS", tx);
   },
 };

@@ -50,7 +50,7 @@
     class="sm:container mx-10 sm:mx-auto border-amber-900 rounded-xl mt-5 mb-16 lg:flex flex-wrap"
   >
     <div class="blocks shadow-md md:flex-1 rounded-xl">
-      <HomeTableBlocks header-text="Latest Blocks" :data="blocks" />
+      <HomeTableBlocks />
     </div>
     <div class="my-5 lg:my-0 mx-5"></div>
     <div class="transactions shadow-md md:flex-1 rounded-xl overflow-hidden">
@@ -91,9 +91,6 @@ const panelData = computed(() => {
       data: difficulty || "no data",
     },
   ];
-});
-const blocks = computed(() => {
-  return store.getters["blocks/getters_blocks"];
 });
 
 onMounted(() => {

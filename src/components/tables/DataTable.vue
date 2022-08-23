@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in items" :key="index">
+        <tr v-for="item in items" :key="item.uniqueId">
           <td
             v-for="({ value }, index) in header"
             :key="index"
