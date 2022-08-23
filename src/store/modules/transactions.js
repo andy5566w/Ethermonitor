@@ -9,7 +9,7 @@ export const state = {
 };
 
 export const getters = {
-  getters_txs() {
+  getters_txs(state) {
     return state.transactions;
   },
 };
@@ -31,7 +31,13 @@ export const actions = {
     });
   },
   async fetchTransactionById({ commit }, txId) {
-    const tx = fetchTx(txId);
+    const tx = await fetchTx(txId);
+    commit("UPDATE_TRANSACTIONS", tx);
+  },
+  async testTransactionID({ commit }) {
+    const tx = await fetchTx(
+      "0x59f9d2896b5b12e8aac387842076d202f6ae4fdf19951c092570645225287725"
+    );
     commit("UPDATE_TRANSACTIONS", tx);
   },
 };
